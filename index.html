@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vinay Thakkar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Mono:wght@300;400&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #F5F0E8;
+      --bg-card: #EDE8DF;
+      --ink: #1A1612;
+      --ink-light: #5C5047;
+      --ink-faint: #9C9085;
+      --accent: #8B3A2A;
+      --accent-light: #C4614A;
+      --rule: #D4CCBF;
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --body: 'Spectral', Georgia, serif;
+      --mono: 'DM Mono', monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--ink);
+      font-family: var(--body);
+      font-weight: 300;
+      line-height: 1.8;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Grain overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1000;
+      opacity: 0.4;
+    }
+
+    /* ── HEADER ── */
+    header {
+      border-bottom: 1px solid var(--rule);
+      padding: 3.5rem 0 2.5rem;
+      text-align: center;
+      position: relative;
+      animation: fadeDown 0.9s ease both;
+    }
+
+    header::after {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 2px;
+      background: var(--accent);
+      margin: 2rem auto 0;
+    }
+
+    .site-name {
+      font-family: var(--serif);
+      font-weight: 300;
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      letter-spacing: 0.02em;
+      line-height: 1.1;
+      color: var(--ink);
+    }
+
+    .site-name span {
+      color: var(--accent);
+    }
+
+    .tagline {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-top: 0.9rem;
+    }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 2.5rem;
+      padding: 1.4rem 0;
+      border-bottom: 1px solid var(--rule);
+      animation: fadeDown 0.9s 0.1s ease both;
+    }
+
+    nav a {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      text-decoration: none;
+      transition: color 0.2s;
+      position: relative;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0; right: 0;
+      height: 1px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transition: transform 0.25s ease;
+    }
+
+    nav a:hover { color: var(--accent); }
+    nav a:hover::after { transform: scaleX(1); }
+
+    /* ── LAYOUT ── */
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ── INTRO ── */
+    .intro {
+      padding: 5rem 0 3rem;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 4rem;
+      align-items: start;
+      border-bottom: 1px solid var(--rule);
+      animation: fadeUp 1s 0.2s ease both;
+    }
+
+    .intro-label {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-bottom: 1rem;
+      padding-top: 0.3rem;
+    }
+
+    .intro-text {
+      font-family: var(--serif);
+      font-size: clamp(1.5rem, 2.5vw, 2rem);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.6;
+      color: var(--ink);
+    }
+
+    .intro-text em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    /* ── POSTS ── */
+    .posts-section {
+      padding: 4rem 0;
+      animation: fadeUp 1s 0.35s ease both;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .section-title {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+
+    .section-rule {
+      flex: 1;
+      height: 1px;
+      background: var(--rule);
+    }
+
+    .post-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .post-item {
+      display: grid;
+      grid-template-columns: 100px 1fr auto;
+      gap: 2rem;
+      align-items: baseline;
+      padding: 1.8rem 0;
+      border-bottom: 1px solid var(--rule);
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.2s;
+      cursor: pointer;
+    }
+
+    .post-item:first-child { border-top: 1px solid var(--rule); }
+
+    .post-item:hover .post-title { color: var(--accent); }
+    .post-item:hover .post-arrow { opacity: 1; transform: translateX(4px); }
+
+    .post-date {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--ink-faint);
+      letter-spacing: 0.05em;
+      padding-top: 0.15rem;
+    }
+
+    .post-content { }
+
+    .post-title {
+      font-family: var(--serif);
+      font-size: clamp(1.1rem, 2vw, 1.45rem);
+      font-weight: 400;
+      line-height: 1.3;
+      margin-bottom: 0.4rem;
+      transition: color 0.2s;
+    }
+
+    .post-excerpt {
+      font-size: 0.88rem;
+      color: var(--ink-light);
+      line-height: 1.6;
+    }
+
+    .post-tag {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 0.2em 0.6em;
+      margin-top: 0.6rem;
+      display: inline-block;
+    }
+
+    .post-arrow {
+      font-size: 1rem;
+      color: var(--accent);
+      opacity: 0;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    /* ── FEATURED POST ── */
+    .featured {
+      background: var(--bg-card);
+      border: 1px solid var(--rule);
+      padding: 3rem;
+      margin-bottom: 2rem;
+      position: relative;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+
+    .featured:hover { border-color: var(--accent); }
+
+    .featured-label {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.2rem;
+    }
+
+    .featured-title {
+      font-family: var(--serif);
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 400;
+      line-height: 1.25;
+      margin-bottom: 1rem;
+    }
+
+    .featured-excerpt {
+      font-size: 0.95rem;
+      color: var(--ink-light);
+      line-height: 1.75;
+      max-width: 600px;
+    }
+
+    .featured-meta {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .featured-date {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--ink-faint);
+    }
+
+    .read-more {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid var(--accent);
+      padding-bottom: 1px;
+      transition: opacity 0.2s;
+    }
+
+    .read-more:hover { opacity: 0.7; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--rule);
+      padding: 2.5rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-name {
+      font-family: var(--serif);
+      font-size: 1rem;
+      font-style: italic;
+      color: var(--ink-light);
+    }
+
+    .footer-note {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      .intro {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 3rem 0 2rem;
+      }
+      .post-item {
+        grid-template-columns: 1fr;
+        gap: 0.4rem;
+      }
+      .post-arrow { display: none; }
+      .post-date { margin-bottom: 0.2rem; }
+      footer { flex-direction: column; gap: 0.8rem; text-align: center; }
+      .featured { padding: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <h1 class="site-name">Vinay <span>Thakkar</span></h1>
+      <p class="tagline">Thinking out loud on politics, economics &amp; philosophy</p>
+    </div>
+  </header>
+
+  <nav>
+    <a href="#">Writing</a>
+    <a href="#">Essays</a>
+    <a href="#">About</a>
+    <a href="#">Archive</a>
+  </nav>
+
+  <main class="container">
+
+    <section class="intro">
+      <p class="intro-label">On this site</p>
+      <p class="intro-text">
+        Ideas that <em>resist easy answers.</em> Writing that takes its time.
+        Notes from someone trying to understand how the world actually works —
+        not how we're told it does.
+      </p>
+    </section>
+
+    <section class="posts-section">
+      <div class="section-header">
+        <span class="section-title">Latest</span>
+        <div class="section-rule"></div>
+      </div>
+
+      <!-- Featured Post -->
+      <div class="featured">
+        <p class="featured-label">★ Featured Essay</p>
+        <h2 class="featured-title">The Price of Certainty: Why Confident People Get History Wrong</h2>
+        <p class="featured-excerpt">
+          There is a particular kind of intellectual failure that only becomes visible in hindsight.
+          It is not the failure of ignorance — of people who simply did not have the information.
+          It is the failure of certainty: of people who knew, who had studied the evidence,
+          and who were nonetheless catastrophically wrong.
+        </p>
+        <div class="featured-meta">
+          <span class="featured-date">March 01, 2026</span>
+          <a href="#" class="read-more">Read essay →</a>
+          <span class="post-tag">Philosophy</span>
+        </div>
+      </div>
+
+      <!-- Post List -->
+      <div class="post-list">
+
+        <a class="post-item" href="#">
+          <span class="post-date">Feb 18, 2026</span>
+          <div class="post-content">
+            <h3 class="post-title">What Markets Can't Tell You About Value</h3>
+            <p class="post-excerpt">On the limits of price as a signal — and what gets lost when we stop asking deeper questions about worth.</p>
+            <span class="post-tag">Economics</span>
+          </div>
+          <span class="post-arrow">→</span>
+        </a>
+
+        <a class="post-item" href="#">
+          <span class="post-date">Feb 04, 2026</span>
+          <div class="post-content">
+            <h3 class="post-title">Power Without Accountability Is Just Violence With Better Branding</h3>
+            <p class="post-excerpt">A short essay on why institutions that cannot be questioned eventually become the thing they were built to prevent.</p>
+            <span class="post-tag">Politics</span>
+          </div>
+          <span class="post-arrow">→</span>
+        </a>
+
+        <a class="post-item" href="#">
+          <span class="post-date">Jan 22, 2026</span>
+          <div class="post-content">
+            <h3 class="post-title">The Argument From Consequences Is Almost Always Wrong</h3>
+            <p class="post-excerpt">We justify too many things by pointing to their outcomes. But consequences are slippery, contested, and usually arrive too late to matter.</p>
+            <span class="post-tag">Philosophy</span>
+          </div>
+          <span class="post-arrow">→</span>
+        </a>
+
+        <a class="post-item" href="#">
+          <span class="post-date">Jan 09, 2026</span>
+          <div class="post-content">
+            <h3 class="post-title">India's Middle Class Doesn't Want Justice. It Wants Order.</h3>
+            <p class="post-excerpt">A provocation: the Indian middle class has confused stability with fairness for so long that it can no longer tell them apart.</p>
+            <span class="post-tag">Politics</span>
+          </div>
+          <span class="post-arrow">→</span>
+        </a>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="container">
+    <span class="footer-name">Vinay Thakkar</span>
+    <span class="footer-note">Built by hand · Hosted on GitHub Pages</span>
+  </footer>
+
+</body>
+</html>
